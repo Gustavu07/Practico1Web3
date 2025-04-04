@@ -1,0 +1,41 @@
+{% extends "restaurante/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h2 class="card-title">Formulario de Órdenes</h2>
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <form method="post" action="">
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                <label for="id_mesero" class="form-label">Mesero</label>
+                                {{ form.mesero }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_mesa" class="form-label">Mesa</label>
+                                {{ form.mesa }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Platos</label>
+                                {{ form.platos }}
+                            </div>
+
+                            <input class="btn btn-primary" type="submit" value="Guardar">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

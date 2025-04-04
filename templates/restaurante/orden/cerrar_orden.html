@@ -1,0 +1,35 @@
+{% extends "restaurante/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h2 class="card-title">Cerrar Orden</h2>
+
+                        <p><strong>Orden:</strong> {{ orden.id }}</p>
+                        <p><strong>Mesa:</strong> {{ orden.mesa }}</p>
+                        <p><strong>Mesero:</strong> {{ orden.mesero }}</p>
+                        <p><strong>Platos:</strong>
+                            <ul>
+                                {% for plato in orden.platos.all %}
+                                    <li>{{ plato.nombre }}</li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.as_p }}
+                            </div>
+                            <button type="submit" class="btn btn-success">Realizar Pago y Cerrar Orden</button>
+                        </form>
+
+                        <a href="{% url 'orden_list' %}" class="btn btn-secondary mt-3">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

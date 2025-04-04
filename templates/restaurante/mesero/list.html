@@ -1,0 +1,52 @@
+{% extends "restaurante/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h2 class="card-title">Lista de Meseros</h2>
+
+                        <div class="mb-3">
+                            <a class="btn btn-success" href="{% url 'meseros_create' %}">Añadir Nuevo Mesero</a>
+                        </div>
+
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Telefono</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                             <tbody>
+                            {% for mesero in mesero_list %}
+
+                                <tr>
+                                    <td> {{ mesero.id }}</td>
+                                    <td> {{ mesero.nombre }}</td>
+                                    <td> {{ mesero.apellido }}</td>
+                                    <td> {{ mesero.telefono }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url "meseros_editar" mesero.id %}">Editar</a>
+                                    </td>
+                                    <td>
+                                        <form action="{% url "meseros_delete" mesero.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input class="btn btn-danger" type="submit" value="Eliminar">
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

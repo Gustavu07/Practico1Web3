@@ -1,0 +1,50 @@
+{% extends "restaurante/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card mt-2">
+                    <div class="card-body">
+                       <h2 class="card-title">Lista de Platos</h2>
+
+                        <div class="mb-3">
+                            <a class="btn btn-success" href="{% url 'platos_create' %}">Añadir Nuevo Plato</a>
+                        </div>
+
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>descripción</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                             <tbody>
+                            {% for platos in plato_list %}
+
+                                <tr>
+                                    <td> {{ platos.id }}</td>
+                                    <td> {{ platos.nombre }}</td>
+                                    <td> {{ platos.descripcion }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url "platos_editar" platos.id %}">Editar</a>
+                                    </td>
+                                    <td>
+                                        <form action="{% url "platos_delete" platos.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input class="btn btn-danger" type="submit" value="Eliminar">
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

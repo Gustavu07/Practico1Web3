@@ -1,0 +1,48 @@
+{% extends "restaurante/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h2 class="card-title">Lista de Mesas</h2>
+
+                        <div class="mb-3">
+                            <a class="btn btn-success" href="{% url 'mesas_create' %}">Añadir Mesa</a>
+                        </div>
+
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Numero de Mesas</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                             <tbody>
+                            {% for mesas in mesa_list %}
+
+                                <tr>
+                                    <td> {{ mesas.id }}</td>
+                                    <td> {{ mesas.numero }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url "mesas_editar" mesas.id %}">Editar</a>
+                                    </td>
+                                    <td>
+                                        <form action="{% url "mesas_delete" mesas.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input class="btn btn-danger" type="submit" value="Eliminar">
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
